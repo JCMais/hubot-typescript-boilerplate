@@ -1,0 +1,64 @@
+{
+  "name": "hubot-typescript-boilerplate",
+  "version": "0.0.1",
+  "author": "Jonathan Cardoso Machado <me@jonathancardoso.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/JCMais/hubot-typescript-boilerplate.git"
+  },
+  "keywords": [
+    "chatops",
+    "hubot",
+    "typescript",
+    "boilerplate"
+  ],
+  "description": "ChatOps made easier",
+  "dependencies": {
+    "@types/hubot": "^2.19.2",
+    "axios": "^0.18.0",
+    "coffeescript": "^2.3.2",
+    "cross-env": "^5.2.0",
+    "hubot": "^3.1.1",
+    "hubot-diagnostics": "^1.0.0",
+    "hubot-help": "^1.0.1",
+    "hubot-rules": "^1.0.0",
+    "hubot-scripts": "^2.17.2",
+    "hubot-slack": "^4.5.5"
+  },
+  "devDependencies": {
+    "@types/jest": "^23.3.9",
+    "@types/node": "^10.12.7",
+    "dotenv-cli": "^1.4.0",
+    "hubot-test-helper": "^1.9.0",
+    "jest": "^23.6.0",
+    "jest-mock-axios": "^2.1.11",
+    "nodemon": "^1.18.6",
+    "patch-package": "^5.1.1",
+    "postinstall-postinstall": "^2.0.0",
+    "prettier": "^1.15.2",
+    "rimraf": "^2.6.2",
+    "ts-jest": "^23.10.4",
+    "ts-node": "^7.0.1",
+    "tslint": "^5.11.0",
+    "tslint-config-airbnb": "^5.11.0",
+    "tslint-config-prettier": "^1.16.0",
+    "typescript": "^3.1.6"
+  },
+  "files": [
+    "build"
+  ],
+  "scripts": {
+    "start": "node  node_modules/hubot/bin/hubot.js --require ./build/scripts",
+    "dev": "dotenv -e .env ts-node -- node_modules/hubot/bin/hubot.js --require ./src/scripts",
+    "dev:watch": "nodemon",
+    "clean": "rimraf build",
+    "build": "yarn clean && tsc",
+    "build:start": "yarn build && yarn start",
+    "postinstall": "node ./tools/compile-coffee-deps.js && patch-package",
+    "prepublishOnly": "yarn lint && yarn test && yarn build",
+    "lint": "tslint --project tsconfig.json {src}/**/*.ts",
+    "test": "jest",
+    "heroku-postbuild": "yarn build"
+  }
+}

@@ -1,0 +1,45 @@
+patch-package
+--- a/node_modules/hubot/bin/hubot.js
++++ b/node_modules/hubot/bin/hubot.js
+@@ -112,9 +112,6 @@ robot.adapter.once('connected', loadScripts)
+ robot.run()
+ 
+ function loadScripts () {
+-  robot.load(pathResolve('.', 'scripts'))
+-  robot.load(pathResolve('.', 'src', 'scripts'))
+-
+   loadHubotScripts()
+   loadExternalScripts()
+ 
+--- a/node_modules/hubot/src/robot.js
++++ b/node_modules/hubot/src/robot.js
+@@ -348,10 +348,10 @@ class Robot {
+   loadFile (filepath, filename) {
+     const ext = path.extname(filename)
+     const full = path.join(filepath, path.basename(filename, ext))
++    const validExtensions = ['.js', '.ts'];
+ 
+-    // see https://github.com/hubotio/hubot/issues/1355
+-    if (!require.extensions[ext]) { // eslint-disable-line
+-      return
++    if (!validExtensions.includes(ext)) {
++      return;
+     }
+ 
+     try {
+@@ -374,11 +374,11 @@ class Robot {
+   // path - A String path on the filesystem.
+   //
+   // Returns nothing.
+-  load (path) {
+-    this.logger.debug(`Loading scripts from ${path}`)
++  load (filePath) {
++    this.logger.debug(`Loading scripts from ${filePath}`)
+ 
+-    if (fs.existsSync(path)) {
+-      fs.readdirSync(path).sort().map(file => this.loadFile(path, file))
++    if (fs.existsSync(filePath)) {
++      fs.readdirSync(filePath).filter(fileName => fs.lstatSync(path.join(filePath, fileName)).isFile()).sort().forEach(fileName => this.loadFile(filePath, fileName))
+     }
+   }
+ 
