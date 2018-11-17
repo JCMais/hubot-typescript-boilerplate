@@ -41,13 +41,13 @@ This will by default use the `shell` adapter, which is great for testing.
 
 This boilerplate comes with the `slack` adapter pre-installed, so you can specify it by running:
 ```sh
-HUBOT_NAME=my-bot HUBOT_SLACK_TOKEN=xoxb-YOUR-TOKEN-HERE yarn start
+HUBOT_NAME=my-bot HUBOT_ADAPTER=slack HUBOT_SLACK_TOKEN=xoxb-YOUR-TOKEN-HERE yarn start
 ```
 
 For more documentation about running hubot itself or the slack adapter, please check their corresponding
- docs:
- https://hubot.github.com/docs/
- https://slackapi.github.io/hubot-slack/#basic-setup
+ docs:  
+ https://hubot.github.com/docs/  
+ https://slackapi.github.io/hubot-slack/#basic-setup  
 
 ## Notes
 
@@ -73,13 +73,14 @@ See https://github.com/mtsmfm/hubot-test-helper/issues/19
 
 There is no brain persister installed, it's your job to install one if needed.
 
-## How does the coffee script scripts can be run alongside typescript during development?
+## How does the coffee script can be run alongside typescript during development?
 
 They don't.
 
 There is a postinstall hook that calls the script [`tools/compile-coffee-deps.js`][tools/compile-coffee-deps.js]
  which is responsible for compilling the dependencies .coffee files to pure .js.
 
+[cross-env]:https://www.npmjs.com/package/cross-env
 [robot.http]:https://hubot.github.com/docs/scripting/#making-http-calls
 [node-scoped-http-client]:https://github.com/technoweenie/node-scoped-http-client
 [hubot-test-helper]:https://github.com/mtsmfm/hubot-test-helper
