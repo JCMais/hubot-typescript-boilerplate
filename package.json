@@ -7,6 +7,7 @@
     "type": "git",
     "url": "git://github.com/JCMais/hubot-typescript-boilerplate.git"
   },
+  "private": true,
   "keywords": [
     "chatops",
     "hubot",
@@ -15,16 +16,20 @@
   ],
   "description": "ChatOps made easier",
   "dependencies": {
+    "@slack/client": "^4.8.0",
+    "@types/express": "^4.16.0",
     "@types/hubot": "^2.19.2",
+    "@types/ramda": "^0.25.41",
     "axios": "^0.18.0",
-    "coffeescript": "^2.3.2",
+    "coffeescript": "1.12.7",
     "cross-env": "^5.2.0",
     "hubot": "^3.1.1",
     "hubot-diagnostics": "^1.0.0",
     "hubot-help": "^1.0.1",
     "hubot-rules": "^1.0.0",
     "hubot-scripts": "^2.17.2",
-    "hubot-slack": "^4.5.5"
+    "hubot-slack": "^4.5.5",
+    "ramda": "^0.25.0"
   },
   "devDependencies": {
     "@types/jest": "^23.3.9",
@@ -50,7 +55,7 @@
   ],
   "scripts": {
     "start": "node  node_modules/hubot/bin/hubot.js --require ./build/scripts",
-    "dev": "dotenv -e .env ts-node -- node_modules/hubot/bin/hubot.js --require ./src/scripts",
+    "dev": "dotenv -e .env ts-node -- --files node_modules/hubot/bin/hubot.js --require ./src/scripts",
     "dev:watch": "nodemon",
     "clean": "rimraf build",
     "build": "yarn clean && tsc",
@@ -58,6 +63,7 @@
     "postinstall": "node ./tools/compile-coffee-deps.js && patch-package",
     "prepublishOnly": "yarn lint && yarn test && yarn build",
     "lint": "tslint --project tsconfig.json {src}/**/*.ts",
+    "prettier": "prettier --write src/**/*.ts",
     "test": "jest",
     "heroku-postbuild": "yarn build"
   }

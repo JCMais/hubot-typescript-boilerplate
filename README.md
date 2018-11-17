@@ -73,7 +73,15 @@ See https://github.com/mtsmfm/hubot-test-helper/issues/19
 
 There is no brain persister installed, it's your job to install one if needed.
 
+## How does the coffee script scripts can be run alongside typescript during development?
+
+They don't.
+
+There is a postinstall hook that calls the script [`tools/compile-coffee-deps.js`][tools/compile-coffee-deps.js]
+ which is responsible for compilling the dependencies .coffee files to pure .js.
+
 [robot.http]:https://hubot.github.com/docs/scripting/#making-http-calls
 [node-scoped-http-client]:https://github.com/technoweenie/node-scoped-http-client
 [hubot-test-helper]:https://github.com/mtsmfm/hubot-test-helper
 [example.spec.ts]: ./src/scripts/__tests__/example.spec.ts
+[tools/compile-coffee-deps.js]: ./tools/compile-coffee-deps.js

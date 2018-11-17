@@ -19,11 +19,11 @@ FROM node:10-alpine
 
 WORKDIR /hubot/code
 
-ENV NODE_ENV production
-
 ARG PORT=3000
 
 ENV PORT ${PORT}
+
+ENV NODE_ENV production
 
 COPY --from=builder /app .
 

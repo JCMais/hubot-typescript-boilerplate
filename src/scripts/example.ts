@@ -16,18 +16,16 @@
 //
 // Author:
 //   JCMais
-import { Robot } from 'hubot';
-import axios from 'axios';
+import { Robot } from 'hubot'
+import axios from 'axios'
 
 module.exports = async function example(robot: Robot<{}>) {
-  robot.hear(/(http(?:s?):\/\/(\S*))/i, async res => {
-    const url = res.match[1];
-    res.send(`ok1: ${url}`);
+  robot.respond(/(http(?:s?):\/\/(\S*))/i, async res => {
+    const url = res.match[1]
+    res.send(`ok1: ${url}`)
 
-    res.send('Ok!')
+    await axios.get(url)
 
-    await axios.get(url);
-
-    res.send(`ok2: ${url}`);
-  });
-};
+    res.send(`ok2: ${url}`)
+  })
+}
