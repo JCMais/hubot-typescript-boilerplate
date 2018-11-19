@@ -1,11 +1,18 @@
 declare module 'hubot-slack' {
+  import { RTMClient } from '@slack/client'
+
   interface Options {
-    token: string;
+    token: string
+  }
+
+  class SlackClient {
+    rtm: RTMClient
   }
 
   class SlackAdapter {
-    options: Options;
+    options: Options
+    client: SlackClient
   }
 
-  export = SlackAdapter;
+  export = SlackAdapter
 }
