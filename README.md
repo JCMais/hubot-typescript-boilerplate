@@ -49,6 +49,14 @@ For more documentation about running hubot itself or the slack adapter, please c
  https://hubot.github.com/docs/  
  https://slackapi.github.io/hubot-slack/#basic-setup  
 
+## Documentation
+
+The code should be self-documented.
+
+Start by looking into the `.env.sample` file, then the scripts inside `src/scripts`, the files inside the `src/utils` and finally test files.
+
+The folder `types` has some helpers for Typescript.
+
 ## Notes
 
 Do not use Hubot [`robot.http`][robot.http] method, it uses [an old lib][node-scoped-http-client] and cannot be easily tested.
