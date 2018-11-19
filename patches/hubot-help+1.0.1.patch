@@ -1,0 +1,16 @@
+patch-package
+--- a/node_modules/hubot-help/src/help.js
++++ b/node_modules/hubot-help/src/help.js
+@@ -76,7 +76,11 @@ module.exports = (robot) => {
+ 
+     const emit = cmds.join('\n')
+ 
+-    if (replyInPrivate && msg.message && msg.message.user && msg.message.user.name) {
++    if (replyInPrivate && robot.adapterName === 'slack' && msg.message && msg.message.user && msg.message.user.id) {
++      msg.message.thread_ts = msg.message.id
++      msg.reply('replied to you in private!')
++      return robot.send({ room: msg.message.user.id }, emit)
++    } else if (replyInPrivate && msg.message && msg.message.user && msg.message.user.name) {
+       msg.reply('replied to you in private!')
+       return robot.send({ room: msg.message.user.name }, emit)
+     } else {
