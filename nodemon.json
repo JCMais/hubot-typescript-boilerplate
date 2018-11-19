@@ -1,7 +1,8 @@
 
 {
   "ignore": ["**/*.spec.ts", ".git", "node_modules", "build"],
-  "watch": ["src"],
+  "watch": ["src", "types"],
   "exec": "yarn dev",
-  "ext": "ts"
+  "ext": "ts",
+  "delay": 1500
 }
