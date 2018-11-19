@@ -22,7 +22,6 @@ export const ackFailed = async (
   })
   await robot.slackClient.reactions.add({
     name: 'heavy_multiplication_x',
-    // @ts-ignore
     channel: res.message.room,
     timestamp: res.message.id,
   })
@@ -39,7 +38,6 @@ export const ackSucceed = async (
   })
   await robot.slackClient.reactions.add({
     name: 'heavy_check_mark',
-    // @ts-ignore
     channel: res.message.room,
     timestamp: res.message.id,
   })
