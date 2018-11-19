@@ -6,6 +6,8 @@ Supports all existing hubot scripts written in coffescript / javascript.
 
 It comes with the slack adapter pre-installed.
 
+![simple demo](https://thumbs.gfycat.com/CoolReflectingAmericanlobster-size_restricted.gif)
+
 ## Development
 Run:
 ```sh
