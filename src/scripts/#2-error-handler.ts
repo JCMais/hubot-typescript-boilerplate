@@ -2,16 +2,17 @@
 //   Handles errors
 //
 // Configuration:
-//   HUBOT_SLACK_ERROR_CHANNEL = The channel error messages should be posted to
+//   HUBOT_SLACK_CONSCIOUSNESS_CHANNEL = The channel bot specific messages should be posted to
 //
 // Author:
 //   JCMais
-import { Robot, Response } from 'hubot'
-import SlackAdapter from 'hubot-slack'
 import { MessageAttachment } from '@slack/client'
+import { Response, Robot } from 'hubot'
+import { SlackAdapter } from 'hubot-slack'
 
 import { AcknowledgeableError } from '../errors/AcknowledgeableError'
-import { mention } from '../utils'
+import { ackFailed, mention } from '../utils'
+import { IgnorableError } from '../errors/IgnorableError'
 
 module.exports = async function debug(robot: Robot<SlackAdapter>) {
   process.on('unhandledRejection', error => {
@@ -26,8 +27,12 @@ module.exports = async function debug(robot: Robot<SlackAdapter>) {
   })
 
   robot.error((error, res) => {
-    if (error instanceof AcknowledgeableError && res) {
+    if (error instanceof IgnorableError) {
+      // do nothing
+      return
+    } else if (error instanceof AcknowledgeableError && res) {
       res.send(error.message)
+      ackFailed(robot, res)
     } else {
       const matchingRes = res || latestRes
 
@@ -35,6 +40,10 @@ module.exports = async function debug(robot: Robot<SlackAdapter>) {
         error,
         message: !!matchingRes && matchingRes.message,
       })
+
+      if (matchingRes) {
+        ackFailed(robot, matchingRes)
+      }
 
       // zalgo ftw
       const title = '❗ M̵a̶l̸-̸f̷u̴n̶c̵t̸i̶o̴n̷ ̴d̴e̷t̴e̶c̵t̸e̷d̵'
@@ -57,11 +66,12 @@ module.exports = async function debug(robot: Robot<SlackAdapter>) {
         mrkdwn_in: ['text', 'fields'],
       }
 
-      robot.slackClient.chat.postMessage({
-        channel: process.env.HUBOT_SLACK_ERROR_CHANNEL as string,
-        text: '',
-        attachments: [attachment],
-      })
+      robot.slackClient &&
+        robot.slackClient.chat.postMessage({
+          channel: process.env.HUBOT_SLACK_CONSCIOUSNESS_CHANNEL as string,
+          text: '',
+          attachments: [attachment],
+        })
     }
   })
 }

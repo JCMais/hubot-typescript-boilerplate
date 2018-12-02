@@ -1,0 +1,23 @@
+From 18c9840a6f668a0bcd5e7441213de8a340057e31 Mon Sep 17 00:00:00 2001
+From: Shane DeWael <sdewael@slack-corp.com>
+Date: Mon, 22 Oct 2018 15:56:20 -0700
+Subject: [PATCH] imports hubot dynamically for extensions
+https://patch-diff.githubusercontent.com/raw/slackapi/hubot-slack/pull/541
+---
+ src/extensions.coffee | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/src/extensions.coffee b/src/extensions.coffee
+index 6b2998c9..84194a8e 100644
+--- a/node_modules/hubot-slack/src/extensions.coffee
++++ b/node_modules/hubot-slack/src/extensions.coffee
+@@ -1,4 +1,9 @@
+ {Robot}           = require.main.require "hubot"
++
++# Requires the es2015 version of Hubot for v3 or higher so the correct prototype is updated
++if Robot.name == "CoffeeScriptCompatibleClass"
++  {Robot} = require.main.require "hubot/es2015"
++
+ {ReactionMessage, PresenceMessage} = require "./message"
+ 
+ ###*

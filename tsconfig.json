@@ -9,6 +9,7 @@
     "sourceMap": true,
     "strict": true,
     "typeRoots": ["node_modules/@types", "types/external"],
+    "noUnusedLocals": true,
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "**/*.spec.ts", "**/__mocks__/*.ts"],

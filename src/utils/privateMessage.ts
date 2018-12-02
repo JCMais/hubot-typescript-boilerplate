@@ -1,5 +1,5 @@
-import { Robot, Response } from 'hubot'
-import SlackAdapter from 'hubot-slack'
+import { Response, Robot } from 'hubot'
+import { SlackAdapter } from 'hubot-slack'
 
 import { AcknowledgeableError } from '../errors/AcknowledgeableError'
 

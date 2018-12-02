@@ -62,7 +62,7 @@
     "build:start": "yarn build && yarn start",
     "postinstall": "node ./tools/compile-coffee-deps.js && patch-package",
     "prepublishOnly": "yarn lint && yarn test && yarn build",
-    "lint": "tslint --project tsconfig.json {src}/**/*.ts",
+    "lint": "tslint -p . -c tslint.json",
     "prettier": "prettier --write src/**/*.ts",
     "test": "jest",
     "heroku-postbuild": "yarn build"

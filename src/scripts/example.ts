@@ -17,12 +17,13 @@
 // Author:
 //   JCMais
 import { Robot, Response } from 'hubot'
-import SlackAdapter from 'hubot-slack'
+import { SlackAdapter } from 'hubot-slack'
 import axios from 'axios'
+
 import {
   assertNotPrivateMessage,
   assertNotInsideThread,
-  workInProgress,
+  assertWorkInProgress,
 } from '../utils'
 
 module.exports = async function example(robot: Robot<SlackAdapter>) {
@@ -47,7 +48,7 @@ module.exports = async function example(robot: Robot<SlackAdapter>) {
   })
 
   robot.respond(/test wip$/, async (res: Response<SlackAdapter>) => {
-    await workInProgress(robot, res)
+    await assertWorkInProgress(robot, res)
   })
 
   robot.respond(/test error$/, async (res: Response<SlackAdapter>) => {
